@@ -4,6 +4,7 @@ module.exports = function repeater(str, {repeatTimes = 1, separator = '+', addit
   let madeStr = String(str);
   let madeAdditionStr = String(addition);
 
+
 let arr = [];
 
 for(let i = 0; i<repeatTimes; i++){
