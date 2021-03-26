@@ -5,12 +5,14 @@ const MODERN_ACTIVITY= 15;
 const HALF_LIFE_PERIOD= 5730;
 
 module.exports = function dateSample(sampleActivity) {
+if(typeof sampleActivity !== 'string' || sampleActivity === undefined || (sampleActivity < 0 || sampleActivity > 15)) return false
+
   let num = +sampleActivity
-  if(typeof num !== 'Number') {
-    return false
-  } else {
-    
-    return Math.ceil(MODERN_ACTIVITY/num)/(0.693/HALF_LIFE_PERIOD)
+if(!isFinite(num) || num === 0){
+  return false
+} else {
+    let k = 0.693/HALF_LIFE_PERIOD
+    return Math.ceil((Math.log(MODERN_ACTIVITY/num))/k);
   }
   
   

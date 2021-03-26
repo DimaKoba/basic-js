@@ -4,9 +4,7 @@ class VigenereCipheringMachine {
   constructor(direction = true){
     this.direction = direction
   }  
-  
-  
-  
+    
 //====================================
 
   encrypt(message, key) {
@@ -15,19 +13,18 @@ class VigenereCipheringMachine {
    }
   let messageUpCase = message.toUpperCase();
   let keyUpCase = key.toUpperCase();
-  let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   let resultArr = [];
 
   for(let i=0, j=0; i<messageUpCase.length; ++i){
-    if(messageUpCase[i] === ' ' || messageUpCase[i] === '!'){
+    if(abc.indexOf(messageUpCase[i]) == -1){
 resultArr.push(messageUpCase[i])
 } else{
     resultArr.push(abc[(abc.indexOf(messageUpCase[i]) + abc.indexOf(keyUpCase[j++ % keyUpCase.length])) % abc.length])
 }
 }
 return resultArr.join('');
-  
-}
+  }
     //=================================================
   decrypt(demessage, key) {
     if(demessage===undefined || key === undefined){
@@ -35,12 +32,14 @@ return resultArr.join('');
     }
     let demessageUpCase = demessage.toUpperCase();
     let keyUpCase = key.toUpperCase();
-    let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let resultArr = [];
-
+if(this.direction == false){
+  demessageUpCase = demessageUpCase.split('').reverse().join('');
+}
 
     for(let n=0, j=0; n<demessageUpCase.length; ++n){
-      if(demessageUpCase[n] === ' ' || messageUpCase[i] === '!'){
+      if(abc.indexOf(demessageUpCase[n]) === -1){
         resultArr.push(demessageUpCase[n])
       } else{
         let result = abc.indexOf(demessageUpCase[n]) - abc.indexOf(keyUpCase[j++ % keyUpCase.length])
@@ -53,17 +52,11 @@ return resultArr.join('');
         }
       }
 
-      if(direction == false){
+      if(this.direction == false){
         return resultArr.reverse().join('')
       } else{
         return resultArr.join('');
       }
     }
 }
-
-
-
-
-  
-
 module.exports = VigenereCipheringMachine;
